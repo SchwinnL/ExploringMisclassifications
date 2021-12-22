@@ -1,0 +1,28 @@
+train: [0]
+test: [1]
+plot: [0]
+load: [1]
+
+model: [Pang2020Boosting, Rice2020Overfitting, Zhang2020Attacks, Sehwag2021Proxy_R18, Zhang2021Geometry, JinRinard2020, Gowal2020Uncovering_34_20, Mustafa2019,
+        Ding2020MMA,
+        Wong2020Fast, Gowal2020Uncovering_28_10_extra, Carmon2019Unlabeled,
+        Sehwag2020Hydra, Wang2020Improving, Hendrycks2019Using, Zhang2019Theoretically,
+        Engstrom2019Robustness, Chen2020Adversarial, Huang2020Self,
+        Zhang2019You, Wu2020Adversarial_extra, Wu2020Adversarial
+]
+model_norm: "Linf"
+dataset: [cifar10]
+pretrained: [True]
+lr_schedule: [step_wise]
+optimizer: [sgdm]
+attacks: [[
+          {"type":apgd, "key":"apgd_accuracy", "iters":100, "restarts":1, "norm": linf, "loss":"cw"},
+          {"type":apgd, "key":"apgd_accuracy", "iters":100, "restarts":1, "norm": linf, "batch_tune":{"sigma":[0.05, 0.1, 0.15, 0.2, 0.25]}, "loss":"jitter"},
+          {"type":apgd, "key":"apgd_accuracy", "iters":100, "restarts":1, "norm": linf, "loss":"ce"},
+          {"type":apgd, "key":"apgd_accuracy", "iters":100, "restarts":1, "norm": linf, "loss":"dlr"}
+          ]]
+que_attacks: False
+test_size: 1
+result_path: Results
+seed: [0]
+batch_size: [5]
