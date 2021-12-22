@@ -91,14 +91,6 @@ class Conf:
         else:
             paths.append(self.dataset.name + "/")
 
-        if dir != "Models" and not self.pretrained:
-            paths.append("model(" + self.model.name + ")/")
-            paths.append("optimizer(" + self.optimizer.name + ")/")
-            paths.append("training_type(" + self.training_type["type"].name + ")/")
-
-        if not self.pretrained:
-            paths.append(self.full_model_name() + ")/")
-
         if len(sub_dirs) != 0:
             for dir in sub_dirs:
                 pn = dir + "/"
@@ -106,7 +98,7 @@ class Conf:
         if create_path:
             self.create_paths(paths)
 
-        if self.pretrained and dir == "Models":
+        if dir == "Models":
             paths.append(self.model_norm + "/" + self.model.name.replace("_L2", "") + ".pt")
         return "".join(paths)
 
@@ -117,18 +109,12 @@ class Conf:
         return self.save_path("Tensorboard")
 
     def model_save_path(self, type, creat_path=True, use_continue_training=True):
-        if self.pretrained:
-            type = ""
-        else:
-            type = "model_" + type
+        type = ""
         if self.continue_training and use_continue_training:
             type = self.continue_training["name"]
 
         dir = self.save_path("Models", create_path=creat_path)
-        if self.pretrained:
-            dir = dir.replace(".pt", type + ".pt")
-        else:
-            dir = dir + type
+        dir = dir.replace(".pt", type + ".pt")
         return dir
 
     def result_save_path(self, name=""):

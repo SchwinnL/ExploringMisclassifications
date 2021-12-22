@@ -18,8 +18,6 @@ def test(conf, model, test_loader, key, attack_conf):
     total_confidence = 0
     l2_norm = 0
     linf_norm = 0
-    max_2_norm = 0
-    max_linf_norm = 0
 
     pred_logits = np.empty((0, 10))
     n = 0
@@ -37,21 +35,12 @@ def test(conf, model, test_loader, key, attack_conf):
             total_confidence += torch.sum(F.softmax(pred, dim=1).max(1)[0])
             l2_norm += torch.sum(torch.norm(delta.view(delta.shape[0], -1), dim=1, p=2)).item()
             linf_norm += torch.sum(torch.norm(delta.view(delta.shape[0], -1), dim=1, p=float("inf"))).item()
-            c_max_linf = torch.max(torch.norm(delta.view(delta.shape[0], -1), dim=1, p=float("inf")))
-            c_max_l2 = torch.max(torch.norm(delta.view(delta.shape[0], -1), dim=1, p=2))
-            if c_max_linf > max_linf_norm:
-                max_linf_norm = c_max_linf
-            if c_max_l2 > max_2_norm:
-                max_2_norm = c_max_l2
-
             pred_logits = np.concatenate((pred_logits, pred.cpu().numpy()), 0)
             n += y.size(0)
     if batch_init_key != "":
         result_dict[key + " batch_init"] = batch_init_key
     result_dict[key + " l2_norm"] = l2_norm / n
     result_dict[key + " linf_norm"] = linf_norm / n
-    result_dict[key + " max_l2_norm"] = max_2_norm
-    result_dict[key + " max_linf_norm"] = max_linf_norm
     result_dict[key] = total_acc / n
     result_dict[key + " confidence"] = total_confidence.item() / n
     save_result_dict(conf, result_dict, name=conf.model.name + "_metrics")

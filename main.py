@@ -8,8 +8,8 @@ import itertools
 from read_yaml import open_yaml
 import argparse
 
-experiment_path = "C:/Users/leosc/Experiments/VALID_Attack/" #"./Experiments/"
-data_path = "C:/Users/leosc/Datasets/"#"./Data/"
+experiment_path = "./Experiments/"
+data_path = "./Data/"
 
 def get_args():
     parser = argparse.ArgumentParser()

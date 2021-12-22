@@ -1,16 +1,6 @@
-train: [0]
-test: [1]
-plot: [0]
-load: [1]
-
 model: [ImageNetFastIsBetter, ImageNetRobustLibrary]
 model_norm: "Linf"
 dataset: [imagenet]
-pretrained: [True]
-epochs: [10]
-lr: [0.1]
-lr_schedule: [step_wise]
-optimizer: [sgdm]
 attacks: [[
           {"type":apgd, "key":"apgd_accuracy", "iters":100, "restarts":1, "norm": linf, "loss":"cw"},
           {"type":apgd, "key":"apgd_accuracy", "iters":100, "restarts":1, "norm": linf, "batch_tune":{"sigma":[0.05, 0.1, 0.15, 0.2, 0.25]}, "loss":"jitter"},

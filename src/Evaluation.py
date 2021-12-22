@@ -1,8 +1,5 @@
 import os
-import numpy as np
 from .Utils import is_float
-from src.Configuration import Conf
-import pandas as pd
 
 def contains_result(conf, key):
     path = conf.result_save_path(conf.model.name + "_metrics")

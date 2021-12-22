@@ -1,6 +1,5 @@
 from .CustomEnums import DataSetName, Norm
 from src.autoattack.autopgd_pt import APGDAttack
-import torch
 
 def get_eps(conf):
     if conf.dataset == DataSetName.cifar10 or conf.dataset == DataSetName.cifar100:

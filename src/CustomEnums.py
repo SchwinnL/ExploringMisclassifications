@@ -60,8 +60,7 @@ class DataSetName(Enum):
         return self.name
 
 class AdversarialAttacks(Enum):
-    #auto attack
-    apgd = 8
+    apgd = 0
     def __str__(self):
         return self.name
 
