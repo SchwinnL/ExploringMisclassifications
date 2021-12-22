@@ -11,8 +11,13 @@ The auto-attack implementation is taken from: https://github.com/fra31/auto-atta
 ### Requirements
 
 argparse
+
 pyyaml
+
 pytorch (1.6)
+
 torchvision
+
 robustbench
+
 numpy
